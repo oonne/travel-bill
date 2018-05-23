@@ -17,7 +17,7 @@ class ExpensesSearch extends Expenses
     public function rules()
     {
         return [
-            [['expenses_money', 'expenses_item', 'expenses_category', 'expenses_handler', 'expenses_remark', 'dateRange'], 'safe'],
+            [['expenses_money', 'expenses_item', 'expenses_city', 'expenses_category', 'expenses_trip', 'expenses_handler', 'expenses_receipt', 'expenses_remark', 'dateRange'], 'safe'],
         ];
     }
 
@@ -47,8 +47,11 @@ class ExpensesSearch extends Expenses
         }
 
         $query->andFilterWhere(['like', 'expenses_item', $this->expenses_item])
+              ->andFilterWhere(['like', 'expenses_city', $this->expenses_city])
               ->andFilterWhere(['expenses_category' => $this->expenses_category])
+              ->andFilterWhere(['expenses_trip' => $this->expenses_trip])
               ->andFilterWhere(['expenses_handler' => $this->expenses_handler])
+              ->andFilterWhere(['expenses_receipt' => $this->expenses_receipt])
               ->andFilterWhere(['like', 'expenses_remark', $this->expenses_remark]);
 
         $data['dataProvider'] = $dataProvider;

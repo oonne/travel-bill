@@ -6,7 +6,9 @@ use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\daterange\DateRangePicker;
 use backend\widgets\Alert;
+use common\models\Expenses;
 use common\models\Category;
+use common\models\Trip;
 use common\models\Handler;
 
 $this->title = '消费记录';
@@ -46,6 +48,11 @@ $this->title = '消费记录';
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
                 ],
                 [
+                    'attribute' => 'expenses_city',
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'filterInputOptions' => ['class' => 'form-control input-sm'],
+                ],
+                [
                     'attribute' => 'expenses_money',
                     'headerOptions' => ['class' => 'col-md-1'],
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
@@ -60,12 +67,30 @@ $this->title = '消费记录';
                     }
                 ],
                 [
+                    'attribute' => 'expenses_trip',
+                    'filter' => Trip::getKeyValuePairs(),
+                    'filterInputOptions' => ['class' => 'form-control input-sm'],
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'value' => function ($model, $key, $index, $column) {
+                        return $model->trip ? $model->trip->trip_name : Html::tag('b', '出差项目错误', ['class' => 'text-danger']);
+                    }
+                ],
+                [
                     'attribute' => 'expenses_handler',
                     'filter' => Handler::getKeyValuePairs(),
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
                     'headerOptions' => ['class' => 'col-md-1'],
                     'value' => function ($model, $key, $index, $column) {
                         return $model->handler ? $model->handler->handler_name : Html::tag('b', '经手人错误', ['class' => 'text-danger']);
+                    }
+                ],
+                [
+                    'attribute' => 'expenses_receipt',
+                    'filter' => Expenses::getReceiptList(),
+                    'filterInputOptions' => ['class' => 'form-control input-sm'],
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'value' => function ($model, $key, $index, $column) {
+                        return $model->receiptMsg;
                     }
                 ],
                 [

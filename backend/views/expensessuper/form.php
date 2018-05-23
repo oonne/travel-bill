@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use common\models\Expenses;
 use common\models\Category;
+use common\models\Trip;
 use common\models\Handler;
 use yii\jui\DatePicker;
 use backend\widgets\Alert;
@@ -25,7 +27,9 @@ $this->title = $model->isNewRecord ? '添加' : '修改';
     <div class="col-lg-6">
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'expenses_item') ?>
+        <?= $form->field($model, 'expenses_city') ?>
         <?= $form->field($model, 'expenses_category')->dropDownList(Category::getKeyValuePairs()) ?>
+        <?= $form->field($model, 'expenses_trip')->dropDownList(Trip::getKeyValuePairs()) ?>
         <?= $form->field($model, 'expenses_money') ?>
         <?= $form->field($model, 'expenses_date')->widget(DatePicker::className(), [
             'options' => ['class' => 'form-control'],
@@ -33,6 +37,7 @@ $this->title = $model->isNewRecord ? '添加' : '修改';
             'dateFormat' => 'yyyy-MM-dd'
         ]) ?>
         <?= $form->field($model, 'expenses_handler')->dropDownList(Handler::getKeyValuePairs()) ?>
+        <?= $form->field($model, 'expenses_receipt')->dropDownList(Expenses::getReceiptList()) ?>
         <?= $form->field($model, 'expenses_remark') ?>
         <div class="form-group">
             <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
