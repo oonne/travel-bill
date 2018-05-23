@@ -16,15 +16,26 @@ $this->title = $model->expenses_item;
     'attributes' => [
         'expenses_money',
         'expenses_date',
+        'expenses_city',
         [
             'attribute' => 'expenses_category',
             'format' => 'html',
             'value' => $model->category ? $model->category->category_name : Html::tag('b', '分类错误', ['class' => 'text-danger']),
         ],
         [
+            'attribute' => 'expenses_trip',
+            'format' => 'html',
+            'value' => $model->trip ? $model->trip->trip_name : Html::tag('b', '出差项目错误', ['class' => 'text-danger']),
+        ],
+        [
             'attribute' => 'expenses_handler',
             'format' => 'html',
             'value' => $model->handler ? $model->handler->handler_name : Html::tag('b', '经手人错误', ['class' => 'text-danger']),
+        ],
+        [
+            'attribute' => 'expenses_receipt',
+            'format' => 'html',
+            'value' => $model->receiptMsg,
         ],
         [
             'attribute' => 'expenses_remark',
