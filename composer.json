@@ -24,7 +24,8 @@
         "onokumus/metismenu": "*",
         "nterms/yii2-pagesize-widget": "*",
         "oonne/yii2-sortable-grid-view": "*",
-        "daixianceng/yii2-echarts": "*"
+        "daixianceng/yii2-echarts": "*",
+        "phpoffice/phpspreadsheet": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
