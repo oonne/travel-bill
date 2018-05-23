@@ -4,6 +4,9 @@ namespace common\models;
 
 class Expenses extends ActiveRecord
 {
+    const RECEIPT_YES = 0;
+    const RECEIPT_NO = 1;
+
     /**
      * @inheritdoc
      */
@@ -60,11 +63,14 @@ class Expenses extends ActiveRecord
         return [
             'id' => 'Expenses ID',
             'expenses_item' => '项目',
+            'expenses_city' => '地点',
             'expenses_category' => '分类',
+            'expenses_trip' => '项目',
             'expenses_money' => '金额',
             'expenses_date' => '日期',
             'expenses_handler' => '经手人',
             'expenses_remark' => '备注',
+            'expenses_receipt' => '发票',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
             'last_editor' => '最后更新帐号',

@@ -1,17 +1,23 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\BadRequestHttpException;
-use common\models\Income;
-use backend\models\IncomeSearch;
-use common\models\Recycle;
+use common\models\Trip;
+use backend\models\TripSearch;
+use oonne\sortablegrid\SortableGridAction;
+use common\models\Expenses;
 
-class IncomesuperController extends Controller
+/**
+ * Tripsuper controller
+ */
+class TripsuperController extends Controller
 {
-    
+
     public function behaviors()
     {
         return [
@@ -27,21 +33,30 @@ class IncomesuperController extends Controller
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'sequence' => [
+                'class' => SortableGridAction::className(),
+                'modelName' => Trip::className(),
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
-        $searchModel = new IncomeSearch();
-        $data = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new TripSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $data['dataProvider'],
-            'summary' => $data['summary'],
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel
         ]);
     }
 
-    public function actionAddIncome()
+    public function actionAddTrip()
     {
-        $model = new Income();
+        $model = new Trip();
         $model->setScenario('creation');
 
         if ($model->load(Yii::$app->request->post())) {
@@ -61,13 +76,12 @@ class IncomesuperController extends Controller
         ]);
     }
 
-    public function actionUpdateIncome($id)
+    public function actionUpdateTrip($id)
     {
-        $model = Income::findOne($id);
+        $model = Trip::findOne($id);
 
         if (!$model) {
-            Yii::$app->session->setFlash('danger', '查无记录');
-            return $this->redirect(['index']);
+            throw new BadRequestHttpException('请求错误！');
         }
 
         if ($model->load(Yii::$app->request->post())) {
@@ -83,43 +97,23 @@ class IncomesuperController extends Controller
         }
 
         return $this->render('form', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionViewIncome($id)
-    {
-        $model = Income::findOne($id);
-
-        if (!$model) {
-            Yii::$app->session->setFlash('danger', '查无记录');
-            return $this->redirect(['index']);
-        }
-
-        return $this->render('view', [
             'model' => $model
         ]);
     }
-    
-    public function actionDeleteIncome($id)
+
+   public function actionDeleteTrip($id)
     {
-        $model = Income::findOne($id);
+        $model = Trip::findOne($id);
 
         if (!$model) {
-            Yii::$app->session->setFlash('danger', '查无记录');
-            return $this->redirect(['index']);
+            throw new BadRequestHttpException('请求错误！');
         }
 
-        $transaction = Yii::$app->db->beginTransaction();
-        $recycleContent = '<p>项目：'. $model->income_item .'</p>';
-        $recycleContent = $recycleContent .'<p>金额：'. $model->income_money .'</p>';
-        $recycleContent = $recycleContent .'<p>时间：'. $model->income_date .'</p>';
-        $recycleContent = $recycleContent .'<p>经手人：'. ($model->handler ? $model->handler->handler_name : '经手人错误' ) .'</p>';
-        $recycleContent = $recycleContent .'<p>备注：'. $model->income_remark .'</p>';
-        $recycle = new Recycle();
-        $recycle->recycle_type = Recycle::TYPE_INCOME;
-        $recycle->recycle_content = $recycleContent;
-        if($recycle->validate()&&$recycle->save(false)){
+        $expenses = Expenses::find()->where(['expenses_trip' => $id])->exists();
+        if ( $expenses ) {
+            Yii::$app->session->setFlash('danger', '该项目下有消费记录，不能删除！');
+        } else {
+            $transaction = Yii::$app->db->beginTransaction();
             try {
                 if (!$model->delete()) {
                     throw new \Exception('删除失败！');
@@ -132,11 +126,8 @@ class IncomesuperController extends Controller
                 $transaction->rollBack();
                 Yii::$app->session->setFlash('danger', $e->getMessage());
             }
-        }else{
-            $transaction->rollBack();
-            Yii::$app->session->setFlash('danger', '回收失败');
         }
-
+        
         return $this->redirect(['index']);
     }
 }

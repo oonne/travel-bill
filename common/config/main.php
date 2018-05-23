@@ -1,6 +1,6 @@
 <?php
 return [
-	'name' => 'casual-accounting',
+	'name' => 'travel-bill',
     'timeZone' => 'Asia/Hong_Kong',
     'language' => 'zh-CN',
     'sourceLanguage' => 'zh-CN',

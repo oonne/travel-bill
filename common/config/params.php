@@ -1,5 +1,5 @@
 <?php
 return [
     'user.passwordResetTokenExpire' => 3600,
-    'systemName' => 'casual accounting',
+    'systemName' => '出差记账',
 ];

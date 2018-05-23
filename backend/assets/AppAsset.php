@@ -16,7 +16,6 @@ class AppAsset extends AssetBundle
     ];
     public $depends = [
         'backend\assets\BaseAsset',
-        'backend\assets\MetisMenuAsset',
-        'backend\assets\IconfontAsset'
+        'backend\assets\MetisMenuAsset'
     ];
 }

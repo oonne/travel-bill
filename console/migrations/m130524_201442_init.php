@@ -4,6 +4,7 @@ use yii\db\Migration;
 use common\models\User;
 use common\models\Handler;
 use common\models\Category;
+use common\models\Trip;
 
 class m130524_201442_init extends Migration
 {
@@ -74,28 +75,37 @@ class m130524_201442_init extends Migration
 
         $this->insert('{{%category}}',$defaultCategory->toArray());
 
-        // Crear expenses table
-        $this->createTable('{{%expenses}}', [
+        // Crear trip table
+        $this->createTable('{{%trip}}', [
             'id' => $this->primaryKey(),
-            'expenses_item' => $this->string(32)->notNull(),
-            'expenses_category' => $this->integer()->notNull(),
-            'expenses_money' => $this->decimal(8,2)->notNull(),
-            'expenses_date' => $this->date()->notNull(),
-            'expenses_handler' => $this->integer()->notNull(),
-            'expenses_remark' => $this->string(255)->notNull(),
+            'trip_name' => $this->string(32)->notNull(),
+            'trip_sequence' => $this->integer()->notNull(),
             'created_at' => $this->datetime()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),
             'last_editor' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        // Crear income table
-        $this->createTable('{{%income}}', [
+        // Initialize the trip Default
+        $defaultCategory = new Trip();
+        $defaultCategory->trip_name = '出差项目';
+        $defaultCategory->trip_sequence = 1;
+        $defaultCategory->created_at = $defaultCategory->updated_at = date('Y-m-d H:i:s', time());
+        $defaultCategory->last_editor = 1;
+
+        $this->insert('{{%trip}}',$defaultCategory->toArray());
+
+        // Crear expenses table
+        $this->createTable('{{%expenses}}', [
             'id' => $this->primaryKey(),
-            'income_item' => $this->string(32)->notNull(),
-            'income_money' => $this->decimal(8,2)->notNull(),
-            'income_date' => $this->date()->notNull(),
-            'income_handler' => $this->integer()->notNull(),
-            'income_remark' => $this->string(255)->notNull(),
+            'expenses_item' => $this->string(32)->notNull(),
+            'expenses_city' => $this->string(32)->notNull(),
+            'expenses_category' => $this->integer()->notNull(),
+            'expenses_trip' => $this->integer()->notNull(),
+            'expenses_money' => $this->decimal(8,2)->notNull(),
+            'expenses_date' => $this->date()->notNull(),
+            'expenses_handler' => $this->integer()->notNull(),
+            'expenses_receipt' => $this->integer()->notNull(),
+            'expenses_remark' => $this->string(255)->notNull(),
             'created_at' => $this->datetime()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),
             'last_editor' => $this->integer()->notNull(),

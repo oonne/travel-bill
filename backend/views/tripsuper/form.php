@@ -1,11 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use common\models\Handler;
-use yii\jui\DatePicker;
 use backend\widgets\Alert;
 
-$this->title = $model->isNewRecord ? '添加' : '修改';
+$this->title = $model->isNewRecord ? '新增项目' : '修改项目';
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -23,15 +21,7 @@ $this->title = $model->isNewRecord ? '添加' : '修改';
 <div class="row">
     <div class="col-lg-6">
     <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'income_item') ?>
-        <?= $form->field($model, 'income_money') ?>
-        <?= $form->field($model, 'income_date')->widget(DatePicker::className(), [
-            'options' => ['class' => 'form-control'],
-            'clientOptions' => ['firstDay' => 0],
-            'dateFormat' => 'yyyy-MM-dd'
-        ]) ?>
-        <?= $form->field($model, 'income_handler')->dropDownList(Handler::getKeyValuePairs()) ?>
-        <?= $form->field($model, 'income_remark') ?>
+        <?= $form->field($model, 'trip_name') ?>
         <div class="form-group">
             <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
         </div>

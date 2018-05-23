@@ -9,7 +9,7 @@ $route = Yii::$app->requestedAction->uniqueId;
 
 $menu = [
     [
-        'label' => '<svg class="icon" aria-hidden="true"><use xlink:href="#icon-set"></use></svg>  系统',
+        'label' => '系统',
         'url' => '#',
         'items' => [
             'site' => ['label' => '系统信息', 'url' => ['site/index'], 'active' => in_array($route, ['site/index'])],
@@ -19,12 +19,12 @@ $menu = [
         ],
     ],
     [
-        'label' => '<svg class="icon" aria-hidden="true"><use xlink:href="#icon-bill"></use></svg>  账单',
+        'label' => '账单',
         'url' => '#',
         'items' => [
             'categorysuper' => ['label' => '分类管理', 'url' => ['categorysuper/index'], 'active' => in_array($route, ['categorysuper/index', 'categorysuper/add-category', 'categorysuper/update-category'])],
+            'tripsuper' => ['label' => '出差项目', 'url' => ['tripsuper/index'], 'active' => in_array($route, ['tripsuper/index', 'tripsuper/add-trip', 'tripsuper/update-trip'])],
             'expensessuper' => ['label' => '消费记录', 'url' => ['expensessuper/index'], 'active' => in_array($route, ['expensessuper/index', 'expensessuper/add-expenses', 'expensessuper/update-expenses', 'expensessuper/view-expenses'])],
-            'incomesuper' => ['label' => '存钱记录', 'url' => ['incomesuper/index'], 'active' => in_array($route, ['incomesuper/index', 'incomesuper/add-income', 'incomesuper/update-income', 'incomesuper/view-income'])],
             'chart' => ['label' => '统计图表', 'url' => ['chart/index'], 'active' => in_array($route, ['chart/index'])],
         ]
     ],
