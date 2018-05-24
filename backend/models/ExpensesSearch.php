@@ -21,7 +21,7 @@ class ExpensesSearch extends Expenses
         ];
     }
 
-    public function search($params)
+    public function search($params, $export=false)
     {
         $query = Expenses::find();
 
@@ -32,15 +32,19 @@ class ExpensesSearch extends Expenses
 
         $data = [];
 
+        if ($export) {
+            $dataProvider->pagination->pageSize = 0;
+        }    
+
         if (!($this->load($params) && $this->validate())) {
             $data['dataProvider'] = $dataProvider;
             $data['summary'] = $this->_summary();
             return $data;
-        }
+        }    
 
         QueryHelper::addDigitalFilter($query, 'expenses_money', $this->expenses_money);
 
-        $dates = explode('~', $this ->dateRange, 2);
+        $dates = explode('~', $this->dateRange, 2);
         if (count($dates) == 2) {
             $query->andFilterWhere(['>=', 'expenses_date', $dates[0] ])
                   ->andFilterWhere(['<=', 'expenses_date', $dates[1] ]);
@@ -93,4 +97,7 @@ class ExpensesSearch extends Expenses
         return $data['summary'];
     }
 
+    public function export($params) {
+        return $this->search($params, true);
+    }
 }

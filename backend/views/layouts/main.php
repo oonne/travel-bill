@@ -25,6 +25,7 @@ $menu = [
             'categorysuper' => ['label' => '分类管理', 'url' => ['categorysuper/index'], 'active' => in_array($route, ['categorysuper/index', 'categorysuper/add-category', 'categorysuper/update-category'])],
             'tripsuper' => ['label' => '出差项目', 'url' => ['tripsuper/index'], 'active' => in_array($route, ['tripsuper/index', 'tripsuper/add-trip', 'tripsuper/update-trip'])],
             'expensessuper' => ['label' => '消费记录', 'url' => ['expensessuper/index'], 'active' => in_array($route, ['expensessuper/index', 'expensessuper/add-expenses', 'expensessuper/update-expenses', 'expensessuper/view-expenses'])],
+            'export' => ['label' => '导出Excel', 'url' => ['export/index'], 'active' => in_array($route, ['export/index'])],
         ]
     ],
 ];
