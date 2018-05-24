@@ -32,7 +32,7 @@ $this->title = '导出Excel';
             }
         ?>
         <?= Html::dropDownList('expenses_trip', $searchModel->expenses_trip, $trip, ['class' => 'input-sm'])?>
-        <?= Html::a('下载', ['download?' . Yii::$app->request->queryString], ['class' => 'btn btn-primary btn-sm', 'target' => '_blank']) ?>
+        <?= Html::a('下载', ['download?' . Yii::$app->request->queryString], ['class' => 'btn btn-primary btn-sm']) ?>
         
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
