@@ -42,10 +42,10 @@ class ExportController extends Controller
     public function actionDownload()
     {
         $searchModel = new ExpensesSearch();
-        $dataProvider = $searchModel->export(Yii::$app->request->queryParams)['dataProvider'];
+        $data = $searchModel->export(Yii::$app->request->queryParams);
 
         try {
-            $filename = OfficeExcel::exportExpenses($dataProvider);
+            $filename = OfficeExcel::exportExpenses($data);
             return Yii::$app->response->sendFile($filename);
         } catch (\Exception $e) {
             Yii::$app->session->setFlash('danger', $e->getMessage());

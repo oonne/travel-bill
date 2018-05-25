@@ -111,11 +111,14 @@ class ExpensessuperController extends Controller
         }
 
         $transaction = Yii::$app->db->beginTransaction();
-        $recycleContent = '<p>项目：'. $model->expenses_item .'</p>';
+        $recycleContent = $recycleContent .'<p>项目：'. ($model->trip ? $model->trip->trip_name : '出差项目错误' ).'</p>';
+        $recycleContent = '<p>地点：'. $model->expenses_city .'</p>';
+        $recycleContent = '<p>内容：'. $model->expenses_item .'</p>';
         $recycleContent = $recycleContent .'<p>分类：'. ($model->category ? $model->category->category_name : '分类错误' ).'</p>';
         $recycleContent = $recycleContent .'<p>金额：'. $model->expenses_money .'</p>';
         $recycleContent = $recycleContent .'<p>时间：'. $model->expenses_date .'</p>';
         $recycleContent = $recycleContent .'<p>经手人：'. ($model->handler ? $model->handler->handler_name : '经手人错误' ) .'</p>';
+        $recycleContent = $recycleContent .'<p>有无发票：'. $model->receiptMsg .'</p>';
         $recycleContent = $recycleContent .'<p>备注：'. $model->expenses_remark .'</p>';
         $recycle = new Recycle();
         $recycle->recycle_type = Recycle::TYPE_EXPENSES;
