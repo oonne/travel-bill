@@ -1,5 +1,4 @@
 module.exports = [
-  // 底导航
   {
     alias: '/',
     path: '/pages/home/home',
@@ -9,6 +8,17 @@ module.exports = [
     },
     config: {
       navigationBarTitleText: '首页'
+    }
+  },
+  {
+    alias: '/login',
+    path: '/pages/login/login',
+    name: 'login',
+    meta: {
+      nav: true
+    },
+    config: {
+      navigationBarTitleText: '登录'
     }
   }
 ]

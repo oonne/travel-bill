@@ -1,17 +1,11 @@
 <template>
   <div class="container">
-    {{motto}}
-    <input v-model="motto" />
-    {{test}}
-    <button @click="on">on</button>
-    <button @click="off">off</button>
-    <button @click="toLogin">登录</button>
+    登录页
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import Path from '@/config/path'
 
 export default {
   data () {
@@ -29,9 +23,6 @@ export default {
       on: 'on',
       off: 'off',
     }),
-    toLogin () {
-      this.$router.push(Path.login)
-    }
   }
 }
 </script>
