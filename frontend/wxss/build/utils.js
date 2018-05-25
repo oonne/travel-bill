@@ -37,7 +37,7 @@ exports.cssLoaders = function (options) {
 
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
-    var loaders = [cssLoader, px2rpxLoader, postcssLoader]
+    var loaders = [cssLoader, postcssLoader, px2rpxLoader]
     if (loader) {
       loaders.push({
         loader: loader + '-loader',
@@ -62,7 +62,6 @@ exports.cssLoaders = function (options) {
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
     css: generateLoaders(),
-    wxss: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
