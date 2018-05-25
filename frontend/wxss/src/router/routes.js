@@ -7,15 +7,34 @@ module.exports = [
       nav: true
     },
     config: {
-      navigationBarTitleText: '首页'
+      navigationBarTitleText: '记一笔'
     }
   },
   {
-    alias: '/login',
+    path: '/pages/list/list',
+    name: 'list',
+    meta: {
+      nav: true
+    },
+    config: {
+      navigationBarTitleText: '账单'
+    }
+  },
+  {
+    path: '/pages/me/me',
+    name: 'me',
+    meta: {
+      nav: true
+    },
+    config: {
+      navigationBarTitleText: '个人中心'
+    }
+  },
+  {
     path: '/pages/login/login',
     name: 'login',
     meta: {
-      nav: true
+      nav: false
     },
     config: {
       navigationBarTitleText: '登录'

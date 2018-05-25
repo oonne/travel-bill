@@ -28,6 +28,28 @@ export default {
       navigationBarBackgroundColor: '#0981dd',
       navigationBarTitleText: '小程序测试',
       navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      color: '#999',
+      selectedColor: '#0a9ffd',
+      backgroundColor: '#fff',
+      borderStyle: 'black',
+      list: [{
+        pagePath: 'pages/home/home',
+        text: '首页',
+        iconPath: 'static/nav/icon-home.png',
+        selectedIconPath: 'static/nav/icon-home-active.png'
+      }, {
+        pagePath: 'pages/list/list',
+        text: '订单',
+        iconPath: 'static/nav/icon-list.png',
+        selectedIconPath: 'static/nav/icon-list-active.png'
+      }, {
+        pagePath: 'pages/me/me',
+        text: '我',
+        iconPath: 'static/nav/icon-me.png',
+        selectedIconPath: 'static/nav/icon-me-active.png'
+      }]
     }
   }
 }
