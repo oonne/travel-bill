@@ -41,8 +41,7 @@ class OfficeExcel
         $sheet->setCellValue('F' . $serialNumber, $data['summary']);
 
         // 写入文件
-        $filename = '测试excel' . date("_Ymd_His") . '.xlsx';
-        // $filename = '出差报销单' . date("_Ymd_His") . '.xlsx';
+        $filename = '出差报销单' . date("_Ymd_His") . '.xlsx';
         $filename = Yii::getAlias(Yii::$app->params['excel.exportPath']) . DIRECTORY_SEPARATOR . $filename;
         $writer = new Xlsx($spreadsheet);
         $writer->save($filename);
