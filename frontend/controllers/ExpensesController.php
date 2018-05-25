@@ -7,6 +7,7 @@ use common\filters\auth\HeaderParamAuth;
 use yii\data\ActiveDataProvider;
 use common\models\Expenses;
 use common\models\Category;
+use common\models\Trip;
 use common\models\Handler;
 use common\models\Recycle;
 
@@ -34,7 +35,7 @@ class ExpensesController extends Controller
     public function actionIndex()
     {
         $query = Expenses::find()
-            ->select(['id', 'expenses_date', 'expenses_item', 'expenses_money', 'expenses_category', 'expenses_handler', 'expenses_remark']);
+            ->select(['id', 'expenses_date', 'expenses_item', 'expenses_city', 'expenses_money', 'expenses_trip', 'expenses_category', 'expenses_handler', 'expenses_receipt', 'expenses_remark']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -49,13 +50,18 @@ class ExpensesController extends Controller
             'perPage' => $dataProvider->pagination->getPageSize(),
         ];
 
-        // Category & Handler
+        // Trip & Category & Handler
         $extra = [];
         
         $category = Category::find()
             ->select(['id', 'category_name'])
             ->all();
         $extra['category'] = $category;
+        
+        $trip = Trip::find()
+            ->select(['id', 'trip_name'])
+            ->all();
+        $extra['trip'] = $trip;
 
         $handler = Handler::find()
             ->select(['id', 'handler_name'])
@@ -165,11 +171,14 @@ class ExpensesController extends Controller
         }
 
         $transaction = Yii::$app->db->beginTransaction();
-        $recycleContent = '<p>项目：'. $model->expenses_item .'</p>';
+        $recycleContent = $recycleContent .'<p>项目：'. ($model->trip ? $model->trip->trip_name : '出差项目错误' ).'</p>';
+        $recycleContent = '<p>地点：'. $model->expenses_city .'</p>';
+        $recycleContent = '<p>内容：'. $model->expenses_item .'</p>';
         $recycleContent = $recycleContent .'<p>分类：'. ($model->category ? $model->category->category_name : '分类错误' ).'</p>';
         $recycleContent = $recycleContent .'<p>金额：'. $model->expenses_money .'</p>';
         $recycleContent = $recycleContent .'<p>时间：'. $model->expenses_date .'</p>';
         $recycleContent = $recycleContent .'<p>经手人：'. ($model->handler ? $model->handler->handler_name : '经手人错误' ) .'</p>';
+        $recycleContent = $recycleContent .'<p>有无发票：'. $model->receiptMsg .'</p>';
         $recycleContent = $recycleContent .'<p>备注：'. $model->expenses_remark .'</p>';
         $recycle = new Recycle();
         $recycle->recycle_type = Recycle::TYPE_EXPENSES;
