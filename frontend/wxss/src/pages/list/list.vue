@@ -7,6 +7,9 @@
 <script>
 
 export default {
+	mounted () {
+		// TODO 获取第一页数据
+	}
 }
 </script>
 

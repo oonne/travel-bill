@@ -1,14 +1,8 @@
 export default {
   state: {
-  	'test': ''
+  	'status': ''
   },
   mutations: {
-  	on (state, data) {
-      state.test = 'on'
-    },
-  	off (state, data) {
-      state.test = 'off'
-    },
   },
   actions: {
   }
