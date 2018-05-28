@@ -44,6 +44,12 @@ class User extends ActiveRecord implements IdentityInterface
 
             [['nickname'], 'required'],
             [['nickname'], 'string', 'max' => 255],
+            [
+                ['user_handler'],
+                'exist',
+                'targetClass' => Handler::className(),
+                'targetAttribute' => 'id'
+            ],
 
             ['status', 'default', 'value' => self::STATUS_ENABLED],
             ['status', 'in', 'range' => [self::STATUS_ENABLED, self::STATUS_DISABLED]],
@@ -65,6 +71,7 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => 'User ID',
             'username' => '用户名',
             'nickname' => '昵称',
+            'user_handler' => '经手人',
             'password' => '密码',
             'password_hash' => '密码hash',
             'access_token' => 'Access Token',
@@ -105,6 +112,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getId()
     {
         return $this->getPrimaryKey();
+    }
+
+    public function getHandler()
+    {
+        return $this->hasOne(Handler::className(), ['id' => 'user_handler']);
     }
 
     /**

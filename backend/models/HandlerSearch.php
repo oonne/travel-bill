@@ -12,7 +12,7 @@ class HandlerSearch extends Handler
     {
         // only fields in rules() are searchable
         return [
-            [['handler_name'], 'safe']
+            [['handler_name', 'handler_trip'], 'safe']
         ];
     }
 
@@ -31,7 +31,8 @@ class HandlerSearch extends Handler
         }
 
         // adjust the query by adding the filters
-        $query->andFilterWhere(['like', 'handler_name', $this->category_name]);
+        $query->andFilterWhere(['like', 'handler_name', $this->handler_name])
+              ->andFilterWhere(['handler_trip' => $this->handler_trip]);
 
         return $dataProvider;
     }

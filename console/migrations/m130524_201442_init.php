@@ -45,7 +45,7 @@ class m130524_201442_init extends Migration
         $this->createTable('{{%handler}}', [
             'id' => $this->primaryKey(),
             'handler_name' => $this->string(32)->notNull(),
-            'trip' => $this->integer()->notNull(),
+            'handler_trip' => $this->integer()->notNull(),
             'created_at' => $this->datetime()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),
             'last_editor' => $this->integer()->notNull(),

@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use backend\widgets\Alert;
 use common\models\User;
+use common\models\Handler;
 
 $this->title = '用户管理';
 ?>
@@ -49,6 +50,15 @@ $this->title = '用户管理';
                     'attribute' => 'nickname',
                     'headerOptions' => ['class' => 'col-md-2'],
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
+                ],
+                [
+                    'attribute' => 'user_handler',
+                    'filter' => Handler::getKeyValuePairs(),
+                    'filterInputOptions' => ['class' => 'form-control input-sm'],
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'value' => function ($model, $key, $index, $column) {
+                        return $model->handler ? $model->handler->handler_name : Html::tag('b', '经手人错误', ['class' => 'text-danger']);
+                    }
                 ],
                 [
                     'attribute' => 'status',

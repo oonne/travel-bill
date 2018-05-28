@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use backend\widgets\Alert;
-use common\models\Handler;
+use common\models\Trip;
 
 $this->title = '经手人管理';
 ?>
@@ -41,6 +41,15 @@ $this->title = '经手人管理';
                     'attribute' => 'handler_name',
                     'headerOptions' => ['class' => 'col-md-2'],
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
+                ],
+                [
+                    'attribute' => 'handler_trip',
+                    'filter' => Trip::getKeyValuePairs(),
+                    'filterInputOptions' => ['class' => 'form-control input-sm'],
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'value' => function ($model, $key, $index, $column) {
+                        return $model->trip ? $model->trip->trip_name : Html::tag('b', '出差项目错误', ['class' => 'text-danger']);
+                    }
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',

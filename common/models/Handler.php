@@ -31,8 +31,14 @@ class Handler extends ActiveRecord
     public function rules()
     {
         return [
-            [['handler_name'], 'required', 'on' => ['creation']],
+            [['handler_name', 'handler_trip'], 'required', 'on' => ['creation']],
             [['handler_name'], 'string', 'max' => 32],
+            [
+                ['handler_trip'],
+                'exist',
+                'targetClass' => Trip::className(),
+                'targetAttribute' => 'id'
+            ],
         ];
     }
 
@@ -44,6 +50,7 @@ class Handler extends ActiveRecord
         return [
             'id' => 'Handler ID',
             'handler_name' => '经手人',
+            'handler_trip' => '当前出差',
             'created_at' => '创建时间',
             'updated_at' => '修改时间',
             'last_editor' => '最后修改人ID',
@@ -56,6 +63,11 @@ class Handler extends ActiveRecord
     public function getId()
     {
         return $this->getPrimaryKey();
+    }
+
+    public function getTrip()
+    {
+        return $this->hasOne(Trip::className(), ['id' => 'handler_trip']);
     }
 
     /**

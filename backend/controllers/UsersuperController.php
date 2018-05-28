@@ -83,7 +83,7 @@ class UsersuperController extends Controller
 
                 if ($model->save(false)) {
                     Yii::$app->session->setFlash('success', '更新成功！');
-                    return $this->refresh();
+                    return $this->redirect(['index']);
                 } else {
                     Yii::$app->session->setFlash('danger', '更新失败。');
                 }

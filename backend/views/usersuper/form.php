@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use backend\widgets\Alert;
+use common\models\Handler;
 
 $this->title = $model->isNewRecord ? '创建用户' : '修改用户';
 ?>
@@ -23,6 +24,7 @@ $this->title = $model->isNewRecord ? '创建用户' : '修改用户';
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'username') ?>
         <?= $form->field($model, 'nickname') ?>
+        <?= $form->field($model, 'user_handler')->dropDownList(Handler::getKeyValuePairs()) ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
         <div class="form-group">
             <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
