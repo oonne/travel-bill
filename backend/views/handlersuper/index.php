@@ -46,7 +46,7 @@ $this->title = '经手人管理';
                     'attribute' => 'handler_trip',
                     'filter' => Trip::getKeyValuePairs(),
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
-                    'headerOptions' => ['class' => 'col-md-1'],
+                    'headerOptions' => ['class' => 'col-md-2'],
                     'value' => function ($model, $key, $index, $column) {
                         return $model->trip ? $model->trip->trip_name : Html::tag('b', '出差项目错误', ['class' => 'text-danger']);
                     }

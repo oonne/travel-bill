@@ -55,7 +55,7 @@ $this->title = '用户管理';
                     'attribute' => 'user_handler',
                     'filter' => Handler::getKeyValuePairs(),
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
-                    'headerOptions' => ['class' => 'col-md-1'],
+                    'headerOptions' => ['class' => 'col-md-2'],
                     'value' => function ($model, $key, $index, $column) {
                         return $model->handler ? $model->handler->handler_name : Html::tag('b', '经手人错误', ['class' => 'text-danger']);
                     }
