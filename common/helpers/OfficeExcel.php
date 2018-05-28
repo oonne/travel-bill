@@ -31,14 +31,15 @@ class OfficeExcel
             $sheet->setCellValue('C' . $serialNumber, $model->expenses_date);
             $sheet->setCellValue('D' . $serialNumber, $model->expenses_city);
             $sheet->setCellValue('E' . $serialNumber, $model->category->category_name);
-            $sheet->setCellValue('F' . $serialNumber, $model->expenses_money);
-            $sheet->setCellValue('G' . $serialNumber, $model->receiptMsg);
-            $sheet->setCellValue('H' . $serialNumber, $model->expenses_remark);
+            $sheet->setCellValue('F' . $serialNumber, $model->handler->handler_name);
+            $sheet->setCellValue('G' . $serialNumber, $model->expenses_money);
+            $sheet->setCellValue('H' . $serialNumber, $model->receiptMsg);
+            $sheet->setCellValue('I' . $serialNumber, $model->expenses_remark);
             
             $serialNumber++;
         }
-        $sheet->setCellValue('E' . $serialNumber, '合计');
-        $sheet->setCellValue('F' . $serialNumber, $data['summary']);
+        $sheet->setCellValue('F' . $serialNumber, '合计');
+        $sheet->setCellValue('G' . $serialNumber, $data['summary']);
 
         // 写入文件
         $filename = '出差报销单' . date("_Ymd_His") . '.xlsx';
