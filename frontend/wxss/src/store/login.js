@@ -12,7 +12,7 @@ export default {
       state.isLogin = true
       state.status = ''
       state.token = data.token
-      wx.setStorageSync('token')
+      wx.setStorageSync('token', data.token)
     },
     logout (state, data) {
       state.isLogin = false
@@ -32,6 +32,9 @@ export default {
   actions: {
     async loginAsync ({ commit }, options) {
 
-    }
+    },
+    async getUserAsync ({ commit }, options) {
+
+    },
   }
 }

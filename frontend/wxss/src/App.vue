@@ -1,16 +1,36 @@
 <script>
+import { mapState, mapMutations, mapActions } from 'vuex'
+import Path from '@/config/path'
+
 export default {
   created () {
-    // 读取token，如果没有token则退出。
+    let that = this
+    // 读取token，如果没有token则直接跳转到退出登录，有token则请求基本数据
     wx.getStorage({
       key: 'token',
       success: (res) => {
-        console.log(res.data)
+        that.login({token: res.data})
       },
       fail: (res) => {
-        console.log('没有')
+        that.logout()
+        that.$router.push(Path.login)
       }
     })
+  },
+  computed: {
+    ...mapState({
+      isLogin: state => state.login.isLogin,
+    })
+  },
+  methods: {
+    ...mapMutations({
+      login: 'login',
+      logout: 'logout',
+    }),
+    ...mapActions({
+      loginAsync: 'loginAsync',
+    }),
+
   }
 }
 </script>
