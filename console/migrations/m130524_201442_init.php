@@ -20,7 +20,7 @@ class m130524_201442_init extends Migration
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
             'nickname' => $this->string()->notNull(),
-            'handler' => $this->integer()->notNull(),
+            'user_handler' => $this->integer()->notNull(),
             'password_hash' => $this->string()->notNull(),
             'auth_key' => $this->string(32)->notNull(),
             'access_token' => $this->string(32)->notNull(),
@@ -33,7 +33,7 @@ class m130524_201442_init extends Migration
         $admin = new User();
         $admin->username = 'admin';
         $admin->nickname = '管理员';
-        $admin->handler = 1;
+        $admin->user_handler = 1;
         $admin->setPassword($admin->username);
         $admin->generateAuthKey();
         $admin->enable();
@@ -54,7 +54,7 @@ class m130524_201442_init extends Migration
         // Initialize the handler Default
         $defaultHandler = new Handler();
         $defaultHandler->handler_name = '默认经手人';
-        $defaultHandler->trip = 1;
+        $defaultHandler->handler_trip = 1;
         $defaultHandler->created_at = $defaultHandler->updated_at = date('Y-m-d H:i:s', time());
         $defaultHandler->last_editor = 1;
 
