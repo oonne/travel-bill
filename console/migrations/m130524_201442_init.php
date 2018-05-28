@@ -20,6 +20,7 @@ class m130524_201442_init extends Migration
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
             'nickname' => $this->string()->notNull(),
+            'handler' => $this->integer()->notNull(),
             'password_hash' => $this->string()->notNull(),
             'auth_key' => $this->string(32)->notNull(),
             'access_token' => $this->string(32)->notNull(),
@@ -32,6 +33,7 @@ class m130524_201442_init extends Migration
         $admin = new User();
         $admin->username = 'admin';
         $admin->nickname = '管理员';
+        $admin->handler = 1;
         $admin->setPassword($admin->username);
         $admin->generateAuthKey();
         $admin->enable();
@@ -43,18 +45,20 @@ class m130524_201442_init extends Migration
         $this->createTable('{{%handler}}', [
             'id' => $this->primaryKey(),
             'handler_name' => $this->string(32)->notNull(),
+            'trip' => $this->integer()->notNull(),
             'created_at' => $this->datetime()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),
             'last_editor' => $this->integer()->notNull(),
         ], $tableOptions);
 
         // Initialize the handler Default
-        $defaultCategory = new Handler();
-        $defaultCategory->handler_name = '经手人';
-        $defaultCategory->created_at = $defaultCategory->updated_at = date('Y-m-d H:i:s', time());
-        $defaultCategory->last_editor = 1;
+        $defaultHandler = new Handler();
+        $defaultHandler->handler_name = '默认经手人';
+        $defaultHandler->trip = 1;
+        $defaultHandler->created_at = $defaultHandler->updated_at = date('Y-m-d H:i:s', time());
+        $defaultHandler->last_editor = 1;
 
-        $this->insert('{{%handler}}',$defaultCategory->toArray());
+        $this->insert('{{%handler}}',$defaultHandler->toArray());
 
         // Crear category table
         $this->createTable('{{%category}}', [
@@ -86,13 +90,13 @@ class m130524_201442_init extends Migration
         ], $tableOptions);
 
         // Initialize the trip Default
-        $defaultCategory = new Trip();
-        $defaultCategory->trip_name = '出差项目';
-        $defaultCategory->trip_sequence = 1;
-        $defaultCategory->created_at = $defaultCategory->updated_at = date('Y-m-d H:i:s', time());
-        $defaultCategory->last_editor = 1;
+        $defaultTrip = new Trip();
+        $defaultTrip->trip_name = '出差项目';
+        $defaultTrip->trip_sequence = 1;
+        $defaultTrip->created_at = $defaultTrip->updated_at = date('Y-m-d H:i:s', time());
+        $defaultTrip->last_editor = 1;
 
-        $this->insert('{{%trip}}',$defaultCategory->toArray());
+        $this->insert('{{%trip}}',$defaultTrip->toArray());
 
         // Crear expenses table
         $this->createTable('{{%expenses}}', [
@@ -126,8 +130,8 @@ class m130524_201442_init extends Migration
         $this->dropTable('{{%user}}');
         $this->dropTable('{{%handler}}');
         $this->dropTable('{{%category}}');
+        $this->dropTable('{{%trip}}');
         $this->dropTable('{{%expenses}}');
-        $this->dropTable('{{%income}}');
         $this->dropTable('{{%recycle}}');
     }
 }
