@@ -1,28 +1,42 @@
 <template>
   <div class="container">
-    登录页
+    <toast />
+
+    <Button type="primary" class="weui-btn" @click="login">
+      登录
+    </Button>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 
+import toast from '@/components/toast'
+
 export default {
+  components: {
+    toast
+  },
   data () {
     return {
-      motto: 'Hello World',
     }
   },
   computed: {
     ...mapState({
-      test: state => state.homeApp.test,
+      status: state => state.login.status,
     })
   },
   methods: {
     ...mapMutations({
-      on: 'on',
-      off: 'off',
+      showToast: 'showToast',
     }),
+    ...mapActions({
+      loginAsync: 'loginAsync',
+      getUserAsync: 'getUserAsync',
+    }),
+    login () {
+      this.showToast({msg: '登录功能未实现'})
+    }
   }
 }
 </script>

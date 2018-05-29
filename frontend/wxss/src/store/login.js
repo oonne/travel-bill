@@ -31,7 +31,19 @@ export default {
   },
   actions: {
     async loginAsync ({ commit }, options) {
-
+      request.post('/user/login', options, {
+        baseURL: Url.api
+      }).then((data) => {
+        if (data.ret_code === '0') {
+          commit('loginSuccess')
+        } else {
+          commit('showToast', {msg: data.ret_msg})
+          commit('loginError')
+        }
+      }).catch((e) => {
+        commit('showToast', {msg: '登录失败'})
+        commit('loginError')
+      })
     },
     async getUserAsync ({ commit }, options) {
 

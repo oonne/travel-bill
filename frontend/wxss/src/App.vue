@@ -36,6 +36,8 @@ export default {
 </script>
 
 <style>
+@import "../static/weui.wxss";
+
 .container {
   height: 100%;
 }
