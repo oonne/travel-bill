@@ -26,6 +26,7 @@ export default {
       state.status = 'success'
     },
     loginError (state, data) {
+      console.log('爱酱大失败')
       state.status = 'error'
     },
     setUser (state, data) {
@@ -55,7 +56,18 @@ export default {
       })
     },
     async getUserAsync ({ commit }, options) {
-
+      Request.get('/user/get-user-info', options, {
+        baseURL: Url.api
+      }).then((data) => {
+        if (data.Ret == 0) {
+          commit('setUser', data.Data.user)
+          commit('setCategory', data.Data.category)
+          commit('setTrip', data.Data.trip)
+          commit('setHandler', data.Data.handler)
+        }
+      }).catch((e) => {
+        console.warn('获取用户资料失败')
+      })
     },
   }
 }

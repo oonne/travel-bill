@@ -50,29 +50,10 @@ class ExpensesController extends Controller
             'perPage' => $dataProvider->pagination->getPageSize(),
         ];
 
-        // Trip & Category & Handler
-        $extra = [];
-        
-        $category = Category::find()
-            ->select(['id', 'category_name'])
-            ->all();
-        $extra['category'] = $category;
-        
-        $trip = Trip::find()
-            ->select(['id', 'trip_name'])
-            ->all();
-        $extra['trip'] = $trip;
-
-        $handler = Handler::find()
-            ->select(['id', 'handler_name'])
-            ->all();
-        $extra['handler'] = $handler;
-
         return [
             'Ret' => 0,
             'Data' => $data,
             'Meta' => $meta,
-            'Extra' => $extra,
         ];
     }
 

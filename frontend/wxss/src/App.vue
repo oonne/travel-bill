@@ -10,6 +10,7 @@ export default {
       key: 'access_token',
       success: (res) => {
         that.login()
+        that.getUserAsync()
       },
       fail: (res) => {
         that.logout()
@@ -29,6 +30,7 @@ export default {
     }),
     ...mapActions({
       loginAsync: 'loginAsync',
+      getUserAsync: 'getUserAsync',
     }),
 
   }
