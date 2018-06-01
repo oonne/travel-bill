@@ -27,7 +27,7 @@ module.exports = [
       nav: true
     },
     config: {
-      navigationBarTitleText: '个人中心'
+      navigationBarTitleText: ''
     }
   },
   {

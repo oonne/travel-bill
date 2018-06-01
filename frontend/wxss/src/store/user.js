@@ -26,7 +26,6 @@ export default {
       state.status = 'success'
     },
     loginError (state, data) {
-      console.log('爱酱大失败')
       state.status = 'error'
     },
     setUser (state, data) {
