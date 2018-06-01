@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <button @click="toLogin">登录</button>
+    <noLogin v-if="!isLogin"/>
+    <div v-else>
+      首页内容
+    </div>
   </div>
 </template>
 
@@ -8,22 +11,24 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import Path from '@/config/path'
 
+import noLogin from '@/components/noLogin'
+
 export default {
+  components: {
+    noLogin
+  },
   data () {
     return {
     }
   },
   computed: {
     ...mapState({
-      status: state => state.homeApp.status,
+      isLogin: state => state.login.isLogin,
     })
   },
   methods: {
     ...mapMutations({
-    }),
-    toLogin () {
-      this.$router.push(Path.login)
-    }
+    })
   }
 }
 </script>

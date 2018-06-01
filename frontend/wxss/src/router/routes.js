@@ -37,6 +37,8 @@ module.exports = [
       nav: false
     },
     config: {
+      navigationBarBackgroundColor: '#f8f8f8',
+      navigationBarTextStyle: 'black',
       navigationBarTitleText: '登录'
     }
   }

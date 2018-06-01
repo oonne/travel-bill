@@ -36,9 +36,21 @@ export default {
 </script>
 
 <style>
-@import "../static/weui.wxss";
+@import "../static/wxss/weui.wxss";
 
 .container {
-  height: 100%;
+  min-height: 100vh;
+  background-color: #f8f8f8;
+}
+
+/*weui*/
+.weui-btn[type=primary] {
+  background-color: #0a9ffd;
+}
+.button-hover[type=primary] {
+  background-color: #1b9aeb;
+}
+.weui-btn[disabled][type=primary]{
+  background-color: #57b6f2;
 }
 </style>

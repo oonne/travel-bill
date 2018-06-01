@@ -3,14 +3,14 @@ import Vuex from 'vuex'
 
 import toast from './toast'
 import login from './login'
-import homeApp from './homeApp'
+import home from './home'
 Vue.use(Vuex)
 
 let store = new Vuex.Store({
   modules: {
     toast: toast,
     login: login,
-    homeApp: homeApp
+    home: home
   }
 })
 
