@@ -80,6 +80,8 @@ export default {
             // 缓存用户名和token
             wx.setStorageSync('username', data.username)
             wx.setStorageSync('access_token', data.access_token)
+            // 获取用户基本资料
+            that.getUserAsync()
             // 登录成功后跳转
             wx.switchTab({
               url: Path.home
