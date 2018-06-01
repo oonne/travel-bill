@@ -78,12 +78,15 @@ class UserController extends Controller
 
         $category = Category::find()
             ->select(['id', 'category_name'])
+            ->orderBy(['category_sequence' => SORT_DESC])
             ->all();
         $trip = Trip::find()
             ->select(['id', 'trip_name'])
+            ->orderBy(['trip_sequence' => SORT_DESC])
             ->all();
         $handler = Handler::find()
             ->select(['id', 'handler_name'])
+            ->orderBy(['handler_sequence' => SORT_DESC])
             ->all();
 
         $data = [
