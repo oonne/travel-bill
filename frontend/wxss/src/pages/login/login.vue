@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     ...mapState({
-      status: state => state.login.status,
+      status: state => state.user.status,
     }),
     btnText () {
       if (this.status === 'pending') {

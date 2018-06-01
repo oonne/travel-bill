@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     ...mapState({
-      isLogin: state => state.login.isLogin,
+      isLogin: state => state.user.isLogin,
     })
   },
   methods: {

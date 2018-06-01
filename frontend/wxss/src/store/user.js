@@ -6,24 +6,23 @@ export default {
   state: {
     isLogin: false,
     status: '',
-    access_token: '',
     user: {}
   },
   mutations: {
     login (state, data) {
       state.isLogin = true
       state.status = ''
-      state.access_token = data.access_token
     },
     logout (state, data) {
       state.isLogin = false
-      state.access_token = ''
+      state.user = {}
       wx.removeStorageSync('access_token')
     },
     loginPadding (state, data) {
       state.status = 'pending'
     },
     loginSuccess (state, data) {
+      state.isLogin = true
       state.status = 'success'
     },
     loginError (state, data) {
@@ -44,7 +43,7 @@ export default {
       }).then((data) => {
         if (data.Ret == 0) {
           commit('loginSuccess')
-          commit('login', data.Data)
+          commit('setUser', data.Data)
           options.callback(data.Data)
         } else {
           commit('showToast', {msg: Util.getFirstAttr(data.Data.errors)})

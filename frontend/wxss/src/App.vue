@@ -9,7 +9,7 @@ export default {
     wx.getStorage({
       key: 'access_token',
       success: (res) => {
-        that.login({access_token: res.data})
+        that.login()
       },
       fail: (res) => {
         that.logout()
@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     ...mapState({
-      isLogin: state => state.login.isLogin,
+      isLogin: state => state.user.isLogin
     })
   },
   methods: {
