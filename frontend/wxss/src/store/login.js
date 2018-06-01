@@ -1,23 +1,24 @@
-import request from '../utils/request'
+import Request from '../utils/request'
+import Util from '../utils/util'
 import Url from '../config/url'
 
 export default {
   state: {
-    'isLogin': false,
-    'token': '',
-    'status': '',
+    isLogin: false,
+    status: '',
+    access_token: '',
+    user: {}
   },
   mutations: {
     login (state, data) {
       state.isLogin = true
       state.status = ''
-      state.token = data.token
-      wx.setStorageSync('token', data.token)
+      state.access_token = data.access_token
     },
     logout (state, data) {
       state.isLogin = false
-      state.token = ''
-      wx.removeStorageSync('token')
+      state.access_token = ''
+      wx.removeStorageSync('access_token')
     },
     loginPadding (state, data) {
       state.status = 'pending'
@@ -27,17 +28,26 @@ export default {
     },
     loginError (state, data) {
       state.status = 'error'
-    }
+    },
+    setUser (state, data) {
+      state.user = data
+    },
   },
   actions: {
     async loginAsync ({ commit }, options) {
-      request.post('/user/login', options, {
+      let reqParams = {
+        username: options.username,
+        password: options.password,
+      }
+      Request.post('/user/login', reqParams, {
         baseURL: Url.api
       }).then((data) => {
-        if (data.ret_code === '0') {
+        if (data.Ret == 0) {
           commit('loginSuccess')
+          commit('login', data.Data)
+          options.callback(data.Data)
         } else {
-          commit('showToast', {msg: data.ret_msg})
+          commit('showToast', {msg: Util.getFirstAttr(data.Data.errors)})
           commit('loginError')
         }
       }).catch((e) => {

@@ -48,6 +48,13 @@ export default {
       }
     },
   },
+  created () {
+    // 如果填过用户名则自动填上
+    let username = wx.getStorageSync('username')
+    if (username) {
+      this.username = username
+    }
+  },
   methods: {
     ...mapMutations({
       showToast: 'showToast',
@@ -70,9 +77,9 @@ export default {
           username: username,
           password: password,
           callback: (data) => {
-            // 缓存用户名
-            console.log(data)
-            // wx.setStorageSync('username', data.username)
+            // 缓存用户名和token
+            wx.setStorageSync('username', data.username)
+            wx.setStorageSync('access_token', data.access_token)
             // 登录成功后跳转
             wx.switchTab({
               url: Path.home

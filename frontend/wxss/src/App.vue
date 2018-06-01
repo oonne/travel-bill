@@ -7,9 +7,9 @@ export default {
     let that = this
     // 读取token，如果没有token则直接跳转到退出登录，有token则请求基本数据
     wx.getStorage({
-      key: 'token',
+      key: 'access_token',
       success: (res) => {
-        that.login({token: res.data})
+        that.login({access_token: res.data})
       },
       fail: (res) => {
         that.logout()
