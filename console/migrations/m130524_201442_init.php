@@ -36,6 +36,7 @@ class m130524_201442_init extends Migration
         $admin->user_handler = 1;
         $admin->setPassword($admin->username);
         $admin->generateAuthKey();
+        $admin->generateAccessToken();
         $admin->enable();
         $admin->created_at = $admin->updated_at = date('Y-m-d H:i:s', time());
 
