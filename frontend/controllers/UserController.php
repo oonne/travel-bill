@@ -27,6 +27,12 @@ class UserController extends Controller
 
         if ($model->login()) {
             $data = $model->user->toArray(['username', 'nickname', 'access_token']);
+            $data['handler_id'] = $model->user->handler->id;
+            $data['handler_name'] = $model->user->handler->handler_name;
+            $data['trip_id'] = $model->user->trip->id;
+            $data['trip_name'] = $model->user->trip->trip_name;
+
+
             return [
                 'Ret' => 0,
                 'Data' => $data

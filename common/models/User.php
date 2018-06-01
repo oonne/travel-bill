@@ -119,6 +119,12 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Handler::className(), ['id' => 'user_handler']);
     }
 
+    public function getTrip()
+    {
+        return $this->handler->trip;
+        
+    }
+
     /**
      * @inheritdoc
      */
