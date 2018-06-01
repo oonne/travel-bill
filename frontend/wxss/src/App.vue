@@ -32,7 +32,6 @@ export default {
       loginAsync: 'loginAsync',
       getUserAsync: 'getUserAsync',
     }),
-
   }
 }
 </script>

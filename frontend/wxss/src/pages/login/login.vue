@@ -6,7 +6,7 @@
 
     <div class="login-from">
       <div class="login-input">
-        <input type="number" placeholder="帐号" v-model="username" />
+        <input type="text" placeholder="帐号" v-model="username" />
       </div>
       <div class="login-input">
         <input type="password" password='true' placeholder="密码" v-model="password" />

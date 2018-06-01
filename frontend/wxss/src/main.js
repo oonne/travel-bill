@@ -36,12 +36,12 @@ export default {
       borderStyle: 'black',
       list: [{
         pagePath: 'pages/home/home',
-        text: '首页',
+        text: '记账',
         iconPath: 'static/nav/icon-home.png',
         selectedIconPath: 'static/nav/icon-home-active.png'
       }, {
         pagePath: 'pages/list/list',
-        text: '订单',
+        text: '账单',
         iconPath: 'static/nav/icon-list.png',
         selectedIconPath: 'static/nav/icon-list-active.png'
       }, {

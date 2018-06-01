@@ -86,7 +86,6 @@ class UserController extends Controller
             ->all();
         $handler = Handler::find()
             ->select(['id', 'handler_name'])
-            ->orderBy(['handler_sequence' => SORT_DESC])
             ->all();
 
         $data = [

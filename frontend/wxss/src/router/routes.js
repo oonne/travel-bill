@@ -7,7 +7,7 @@ module.exports = [
       nav: true
     },
     config: {
-      navigationBarTitleText: '记一笔'
+      navigationBarTitleText: '快速记账'
     }
   },
   {

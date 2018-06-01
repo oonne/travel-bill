@@ -53,9 +53,6 @@ export default {
     ...mapState({
       isLogin: state => state.user.isLogin,
       user: state => state.user.user,
-      category: state => state.base.category,
-      trip: state => state.base.trip,
-      handler: state => state.base.handler,
     }),
     avatar () {
       return avatar
