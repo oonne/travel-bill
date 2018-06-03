@@ -2,6 +2,29 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
+  created () {
+    // 读取token，有token则请求基本数据
+    let that = this
+    wx.getStorage({
+      key: 'access_token',
+      success: (res) => {
+        that.login()
+        that.getUserAsync()
+      },
+      fail: (res) => {
+        that.logout()
+      }
+    })  
+  },
+  methods: {
+    ...mapMutations({
+      login: 'login',
+      logout: 'logout',
+    }),
+    ...mapActions({
+      getUserAsync: 'getUserAsync',
+    }),
+  }
 }
 </script>
 

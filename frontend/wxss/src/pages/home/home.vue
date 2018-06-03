@@ -156,19 +156,9 @@ export default {
   },
   onReady () {
     this.date = Util.getYYYYMMDD(new Date())  
-    // 读取token，如果没有token则直接跳转到退出登录，有token则请求基本数据
-    let that = this
-    wx.getStorage({
-      key: 'access_token',
-      success: (res) => {
-        that.login()
-        that.getUserAsync()
-      },
-      fail: (res) => {
-        that.logout()
-        that.$router.push(Path.login)
-      }
-    })  
+    if (!this.isLogin) {
+      this.$router.push(Path.login)
+    }
   },
   methods: {
     ...mapMutations({
@@ -177,7 +167,6 @@ export default {
       logout: 'logout',
     }),
     ...mapActions({
-      getUserAsync: 'getUserAsync',
       addAsync: 'addAsync',
     }),
     onChangeCategory (e) {
