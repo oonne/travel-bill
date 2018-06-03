@@ -82,7 +82,7 @@ class ExpensesController extends Controller
                 return [
                     'Ret' => 2,
                     'Data' => [
-                        'errors' => ['填写信息有误']
+                        'errors' => $model->getFirstErrors()
                     ]
                 ];                
             }

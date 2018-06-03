@@ -19,7 +19,21 @@ export default {
   },
   actions: {
     async addAsync ({ commit }, options) {
-    	// TODO 新增记账的接口
+      commit('addPadding')
+      
+      Request.post('/expenses/add', options, {
+        baseURL: Url.api
+      }).then((data) => {
+        if (data.Ret == 0) {
+          commit('addSuccess')
+        } else {
+          commit('showToast', {msg: Util.getFirstAttr(data.Data.errors)})
+          commit('addError')
+        }
+      }).catch((e) => {
+        commit('showToast', {msg: '新增消费记录失败'})
+        commit('addError')
+      })
     },
   }
 }

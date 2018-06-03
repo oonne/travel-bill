@@ -70,12 +70,12 @@
             有无发票
           </div>
           <div class="weui-cell__ft">
-            <switch @change="switchReceipt" checked />
+            <switch @change="switchReceipt" color="#0a9ffd" checked />
           </div>
         </div>
         <div class="weui-cell weui-cell_input">
           <div class="weui-cell__bd">
-            <input class="weui-input" placeholder="其他备注" />
+            <input class="weui-input" placeholder="其他备注" v-model="remark" />
           </div>
         </div>
       </div>
@@ -106,16 +106,31 @@ export default {
     category (category) {
       // 加载完分类列表之后默认加载第一个
       this.category_id = category[0].id
+    },
+    status (status) {
+      if (status == 'success') {
+        wx.showModal({
+          title: '记录成功',
+          content: '请到账单中查看详情',
+          confirmColor: '#0a9ffd',
+          success: function(res) {
+            // if (res.confirm) {
+            // } else if (res.cancel) {
+            // }
+          }
+        })
+      }
     }
   },
   data () {
     return {
       category_id: 0,
+      date: '',
       item: '',
       city: '',
       money: 0,
-      date: '',
       receipt: true,
+      remark: '',
     }
   },
   computed: {
@@ -139,12 +154,31 @@ export default {
       return category.category_name
     }
   },
-  created () {
-    this.date = Util.getYYYYMMDD(new Date())
+  onReady () {
+    this.date = Util.getYYYYMMDD(new Date())  
+    // 读取token，如果没有token则直接跳转到退出登录，有token则请求基本数据
+    let that = this
+    wx.getStorage({
+      key: 'access_token',
+      success: (res) => {
+        that.login()
+        that.getUserAsync()
+      },
+      fail: (res) => {
+        that.logout()
+        that.$router.push(Path.login)
+      }
+    })  
   },
   methods: {
     ...mapMutations({
       showToast: 'showToast',
+      login: 'login',
+      logout: 'logout',
+    }),
+    ...mapActions({
+      getUserAsync: 'getUserAsync',
+      addAsync: 'addAsync',
     }),
     onChangeCategory (e) {
       let index = e.mp.detail.value
@@ -158,12 +192,46 @@ export default {
     onAdd () {
       let that = this
       let category = this.category_id
+      let date = this.date
+      let item = this.item
+      let city = this.city
+      let money = this.money
       
       if (!category) {
         that.showToast({msg: '请选择分类'})
         return
       }
-      console.log(this.date)
+      if (!date) {
+        that.showToast({msg: '请选择消费时间'})
+        return
+      }
+      if (!item) {
+        that.showToast({msg: '请填写消费内容'})
+        return
+      }
+      if (!city) {
+        that.showToast({msg: '请填写消费地点'})
+        return
+      }
+      if (!money) {
+        that.showToast({msg: '请填写消费金额'})
+        return
+      }
+
+      let options = {
+        expenses_item: item,
+        expenses_city: city,
+        expenses_date: date,
+        expenses_category: category,
+        expenses_trip: this.user.trip_id,
+        expenses_handler: this.user.handler_id,
+        expenses_money: this.money,
+        expenses_remark: this.remark,
+        expenses_receipt: this.receipt ? 1 : 0,
+      }
+
+      console.log(options)
+      this.addAsync(options)
     },
     switchReceipt (e) {
       this.receipt = e.mp.detail.value

@@ -34,6 +34,8 @@ export default {
   },
   actions: {
     async loginAsync ({ commit }, options) {
+      commit('loginPadding')
+      
       let reqParams = {
         username: options.username,
         password: options.password,
