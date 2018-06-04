@@ -178,6 +178,9 @@ export default {
       let date = e.mp.detail.value
       this.date = date
     },
+    switchReceipt (e) {
+      this.receipt = e.mp.detail.value
+    },
     onAdd () {
       let that = this
       let category = this.category_id
@@ -221,9 +224,6 @@ export default {
 
       console.log(options)
       this.addAsync(options)
-    },
-    switchReceipt (e) {
-      this.receipt = e.mp.detail.value
     }
   }
 }

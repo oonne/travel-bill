@@ -81,8 +81,11 @@
       </div>
 
       <div class="btn-area">
-        <Button type="primary" class="weui-btn" :disabled="status === 'pending'" @click="onAdd">
+        <Button type="primary" class="weui-btn" :disabled="status === 'pending'" @click="onEdit">
           修改
+        </Button>
+        <Button type="warn" class="weui-btn" :disabled="status === 'pending'" @click="onDelete">
+          删除
         </Button>
       </div>
     </div>
@@ -106,10 +109,27 @@ export default {
         let that = this
         wx.showModal({
           title: '修改成功',
-          content: '请到账单中查看详情',
+          content: '请返回账单列表查看本次出差的消费明细',
           confirmColor: '#0a9ffd',
           success: function(res) {
             if (res.confirm) {
+              that.$router.back()
+            }
+          }
+        })
+      }
+    },
+    deleteStatus (status) {
+      if (status == 'success') {
+        let that = this
+        wx.showModal({
+          title: '删除成功',
+          content: '返回账单查看本次出差的其他消费',
+          confirmColor: '#0a9ffd',
+          success: function(res) {
+            if (res.confirm) {
+              that.$router.back()
+            } else {
               that.$router.back()
             }
           }
@@ -133,6 +153,7 @@ export default {
   computed: {
     ...mapState({
       status: state => state.edit.status,
+      deleteStatus: state => state.edit.deleteStatus,
       orginal: state => state.edit.orginal,
       category: state => state.base.category,
       handler: state => state.base.handler,
@@ -173,6 +194,7 @@ export default {
     }),
     ...mapActions({
       editAsync: 'editAsync',
+      deleteAsync: 'deleteAsync',
     }),
     onChangeCategory (e) {
       let index = e.mp.detail.value
@@ -183,7 +205,10 @@ export default {
       let date = e.mp.detail.value
       this.date = date
     },
-    onAdd () {
+    switchReceipt (e) {
+      this.receipt = e.mp.detail.value
+    },
+    onEdit () {
       let that = this
       let category = this.category_id
       let date = this.date
@@ -227,8 +252,10 @@ export default {
 
       this.editAsync(options)
     },
-    switchReceipt (e) {
-      this.receipt = e.mp.detail.value
+    onDelete () {
+      this.deleteAsync({
+        id: this.orginal.id
+      })
     }
   }
 }
@@ -242,5 +269,8 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
+}
+.weui-btn{
+  margin-top: 8px;
 }
 </style>
