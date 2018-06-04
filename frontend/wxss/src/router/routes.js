@@ -32,6 +32,16 @@ module.exports = [
     }
   },
   {
+    path: '/pages/edit/edit',
+    name: 'edit',
+    meta: {
+      nav: false
+    },
+    config: {
+      navigationBarTitleText: '修改',
+    }
+  },
+  {
     path: '/pages/login/login',
     name: 'login',
     meta: {

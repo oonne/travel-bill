@@ -32,11 +32,6 @@ export default {
     noLogin,
     listItem,
   },
-  watch: {
-    list (list) {
-      console.log(list)
-    },
-  },
   computed: {
     ...mapState({
       isLogin: state => state.user.isLogin,
