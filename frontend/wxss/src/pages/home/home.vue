@@ -21,6 +21,9 @@
             {{user.handler_name}}
           </div>
         </div>
+      </div>
+
+      <div class="weui-cells">
         <div class="weui-cell weui-cell_select">
           <div class="weui-cell__hd weui-cell__hd_in-select-after">
             <div class="weui-label">分类</div>
@@ -39,22 +42,6 @@
             <picker mode="date" :value="date" @change="onChangeDate">
               <div class="weui-select weui-select_in-select-after">{{date}}</div>
             </picker>
-          </div>
-        </div>
-        <div class="weui-cell weui-cell_input">
-          <div class="weui-cell__hd">
-            <div class="weui-label">消费内容</div>
-          </div>
-          <div class="weui-cell__bd">
-            <input class="weui-input" placeholder="消费内容项" v-model="item" />
-          </div>
-        </div>
-        <div class="weui-cell weui-cell_input">
-          <div class="weui-cell__hd">
-            <div class="weui-label">地点</div>
-          </div>
-          <div class="weui-cell__bd">
-            <input class="weui-input" placeholder="消费的城市" v-model="city" />
           </div>
         </div>
         <div class="weui-cell weui-cell_input">
@@ -195,14 +182,6 @@ export default {
       }
       if (!date) {
         that.showToast({msg: '请选择消费时间'})
-        return
-      }
-      if (!item) {
-        that.showToast({msg: '请填写消费内容'})
-        return
-      }
-      if (!city) {
-        that.showToast({msg: '请填写消费地点'})
         return
       }
       if (!money) {

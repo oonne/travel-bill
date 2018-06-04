@@ -1,10 +1,10 @@
 <template>
   <div class="item" @click="toEdit">
     <div class="item_content">
-      <div class="expenses_item">
-        {{expneses.expenses_item}}
+      <div class="category">
+        {{category}}
       </div>
-      <div class="expenses_info">
+      <div class="info">
         {{expneses.expenses_date}} {{handler}}
       </div>
     </div>
@@ -29,12 +29,17 @@ export default {
   },
   computed: {
     ...mapState({
+      categoryList: state => state.base.category,
       handlerList: state => state.base.handler,
     }),
+    category () {
+      let category = this.categoryList.find(item => item.id==this.expneses.expenses_category)
+      return category ? category.category_name : ''
+    },
     handler () {
       let handler = this.handlerList.find(item => item.id==this.expneses.expenses_handler)
       return handler ? handler.handler_name : ''
-    }
+    },
   },
   methods: {
     ...mapMutations({
@@ -74,10 +79,10 @@ export default {
   text-align: center;
   border-radius: 0 4px 4px 0;
 }
-.expenses_item{
+.category{
   color: #444;
 }
-.expenses_info{
+.info{
   font-size: 0.8em;
   color: #777;
 }
