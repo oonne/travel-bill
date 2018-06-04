@@ -100,11 +100,8 @@ class HandlersuperController extends Controller
         }
 
         $expenses = Expenses::find()->where(['expenses_handler' => $id])->exists();
-        $income = Income::find()->where(['income_handler' => $id])->exists();
         if ( $expenses ) {
             Yii::$app->session->setFlash('danger', '该经手人有消费记录，不能删除！');
-        } else if ( $income ) {
-            Yii::$app->session->setFlash('danger', '该经手人有存钱记录，不能删除！');
         } else {
             $transaction = Yii::$app->db->beginTransaction();
             try {
