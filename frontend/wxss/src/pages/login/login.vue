@@ -6,10 +6,10 @@
 
     <div class="login-from">
       <div class="login-input">
-        <input type="text" placeholder="帐号" v-model="username" />
+        <input type="text" placeholder="帐号" v-model.lazy="username" />
       </div>
       <div class="login-input">
-        <input type="password" password='true' placeholder="密码" v-model="password" />
+        <input type="text" password='true' placeholder="密码" v-model.lazy="password" />
       </div>
 
       <Button type="primary" class="weui-btn" :disabled="status === 'pending'" @click="login">
@@ -69,7 +69,7 @@ export default {
       let password = this.password
 
       if (!username) {
-        this.showToast({msg: '请填写资金帐号'})
+        this.showToast({msg: '请填写用户名'})
       } else if (!password) {
         this.showToast({msg: '请填写密码'})
       } else {
