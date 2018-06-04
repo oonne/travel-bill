@@ -33,7 +33,7 @@ class Expenses extends ActiveRecord
     public function rules()
     {
         return [
-            [['expenses_item', 'expenses_city', 'expenses_category', 'expenses_trip', 'expenses_money', 'expenses_date', 'expenses_handler', 'expenses_receipt'], 'required', 'on' => ['creation']],
+            [['expenses_category', 'expenses_trip', 'expenses_money', 'expenses_date', 'expenses_handler', 'expenses_receipt'], 'required', 'on' => ['creation']],
 
             [['expenses_item'], 'string', 'max' => 32],
             [['expenses_city'], 'string', 'max' => 32],

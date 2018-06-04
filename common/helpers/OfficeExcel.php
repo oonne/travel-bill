@@ -27,14 +27,12 @@ class OfficeExcel
         $serialNumber = 2;
         foreach ($data['dataProvider']->getModels() as $model) {
             $sheet->setCellValue('A' . $serialNumber, $model->trip->trip_name);
-            $sheet->setCellValue('B' . $serialNumber, $model->expenses_item);
-            $sheet->setCellValue('C' . $serialNumber, $model->expenses_date);
-            $sheet->setCellValue('D' . $serialNumber, $model->expenses_city);
-            $sheet->setCellValue('E' . $serialNumber, $model->category->category_name);
-            $sheet->setCellValue('F' . $serialNumber, $model->handler->handler_name);
-            $sheet->setCellValue('G' . $serialNumber, $model->expenses_money);
-            $sheet->setCellValue('H' . $serialNumber, $model->receiptMsg);
-            $sheet->setCellValue('I' . $serialNumber, $model->expenses_remark);
+            $sheet->setCellValue('B' . $serialNumber, $model->expenses_date);
+            $sheet->setCellValue('C' . $serialNumber, $model->category->category_name);
+            $sheet->setCellValue('D' . $serialNumber, $model->expenses_money);
+            $sheet->setCellValue('E' . $serialNumber, $model->handler->handler_name);
+            $sheet->setCellValue('F' . $serialNumber, $model->receiptMsg);
+            $sheet->setCellValue('G' . $serialNumber, $model->expenses_remark);
             
             $serialNumber++;
         }

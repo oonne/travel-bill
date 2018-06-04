@@ -44,12 +44,11 @@ $this->title = '导出Excel';
                     'headerOptions' => ['class' => 'col-md-1'],
                 ],
                 [
-                    'attribute' => 'expenses_item',
-                    'headerOptions' => ['class' => 'col-md-2'],
-                ],
-                [
-                    'attribute' => 'expenses_city',
+                    'attribute' => 'expenses_trip',
                     'headerOptions' => ['class' => 'col-md-1'],
+                    'value' => function ($model, $key, $index, $column) {
+                        return $model->trip ? $model->trip->trip_name : Html::tag('b', '出差项目错误', ['class' => 'text-danger']);
+                    }
                 ],
                 [
                     'attribute' => 'expenses_money',
@@ -60,13 +59,6 @@ $this->title = '导出Excel';
                     'headerOptions' => ['class' => 'col-md-1'],
                     'value' => function ($model, $key, $index, $column) {
                         return $model->category ? $model->category->category_name : Html::tag('b', '分类错误', ['class' => 'text-danger']);
-                    }
-                ],
-                [
-                    'attribute' => 'expenses_trip',
-                    'headerOptions' => ['class' => 'col-md-1'],
-                    'value' => function ($model, $key, $index, $column) {
-                        return $model->trip ? $model->trip->trip_name : Html::tag('b', '出差项目错误', ['class' => 'text-danger']);
                     }
                 ],
                 [

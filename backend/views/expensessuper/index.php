@@ -43,21 +43,6 @@ $this->title = '消费记录';
                     'headerOptions' => ['class' => 'col-md-1'],
                 ],
                 [
-                    'attribute' => 'expenses_item',
-                    'headerOptions' => ['class' => 'col-md-2'],
-                    'filterInputOptions' => ['class' => 'form-control input-sm'],
-                ],
-                [
-                    'attribute' => 'expenses_city',
-                    'headerOptions' => ['class' => 'col-md-1'],
-                    'filterInputOptions' => ['class' => 'form-control input-sm'],
-                ],
-                [
-                    'attribute' => 'expenses_money',
-                    'headerOptions' => ['class' => 'col-md-1'],
-                    'filterInputOptions' => ['class' => 'form-control input-sm'],
-                ],
-                [
                     'attribute' => 'expenses_category',
                     'filter' => Category::getKeyValuePairs(),
                     'filterInputOptions' => ['class' => 'form-control input-sm'],
@@ -65,6 +50,11 @@ $this->title = '消费记录';
                     'value' => function ($model, $key, $index, $column) {
                         return $model->category ? $model->category->category_name : Html::tag('b', '分类错误', ['class' => 'text-danger']);
                     }
+                ],
+                [
+                    'attribute' => 'expenses_money',
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'filterInputOptions' => ['class' => 'form-control input-sm'],
                 ],
                 [
                     'attribute' => 'expenses_trip',
