@@ -2,6 +2,7 @@
   <div class="container">
     <noLogin v-if="!isLogin"/>
     <div v-else class="list">
+      <empty v-if="pageCount==0"/>
       <listItem
         v-for="item of list"
         :key="item.id"
@@ -12,7 +13,7 @@
           <div class="weui-loading"></div>
           <div class="weui-loadmore__tips">加载中...</div>
       </div>
-      
+
       <div class="weui-loadmore weui-loadmore_line" v-show="pageCount==currentPage">
           <div class="weui-loadmore__tips weui-loadmore__tips_in-line">END</div>
       </div>
@@ -26,11 +27,13 @@ import Path from '@/config/path'
 
 import noLogin from '@/components/noLogin'
 import listItem from './list-item'
+import empty from './empty'
 
 export default {
   components: {
     noLogin,
     listItem,
+    empty,
   },
   computed: {
     ...mapState({

@@ -1,5 +1,5 @@
 <template>
-  <div class="item" @click="">
+  <div class="item" @click="toEdit">
     <div class="item_content">
       <div class="expenses_item">
         {{expneses.expenses_item}}
@@ -37,7 +37,13 @@ export default {
     }
   },
   methods: {
-
+    ...mapMutations({
+      edit: 'edit',
+    }),
+    toEdit () {
+      this.edit(this.expneses)
+      this.$router.push(Path.edit)
+    }
   }
 }
 </script>
