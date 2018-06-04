@@ -15,6 +15,9 @@ export default {
     },
     sraechSuccess (state, data) {
       state.status = 'success'
+      state.list = state.list.concat(data.Data)
+      state.pageCount = data.Meta.pageCount
+      state.currentPage = data.Meta.currentPage
     },
     sraechError (state, data) {
       state.status = 'error'
@@ -40,8 +43,10 @@ export default {
         baseURL: Url.api
       }).then((data) => {
         if (data.Ret == 0) {
-          commit('sraechSuccess')
-          console.log(data.Data)
+          commit('sraechSuccess', data)
+          
+          // 停止下拉刷新 
+          wx.stopPullDownRefresh()
         } else {
           commit('showToast', {msg: '查询失败'})
           commit('sraechError')

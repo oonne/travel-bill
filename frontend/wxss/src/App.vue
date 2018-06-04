@@ -46,4 +46,8 @@ export default {
 .weui-btn[disabled][type=primary]{
   background-color: #57b6f2;
 }
+
+.weui-loadmore__tips_in-line{
+  background-color: #f8f8f8;
+}
 </style>

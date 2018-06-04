@@ -17,7 +17,8 @@ module.exports = [
       nav: true
     },
     config: {
-      navigationBarTitleText: '账单'
+      navigationBarTitleText: '账单',
+      enablePullDownRefresh: true
     }
   },
   {
