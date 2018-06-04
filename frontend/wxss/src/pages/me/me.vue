@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <toast />
 
     <div class="me-header" :class="{ 'me-header-wxss': is_wxss }">
       <img v-if="hasUserInfo" class="avatar" :src="userInfo.avatarUrl" alt="avatar" />
@@ -26,6 +27,12 @@
 
 
     <div class="btn-area">
+      <picker v-if="isLogin" :value="tripIndex" :range="trip" range-key="trip_name" @change="changeTrip">
+        <Button type="default" class="weui-btn">
+          切换项目
+        </Button>
+      </picker>
+
       <Button v-if="isLogin" type="default" class="weui-btn" @click="logout">
         退出登录
       </Button>
@@ -42,17 +49,24 @@ import Path from '@/config/path'
 import avatar from './avatar.jpg'
 import waveTop from './wave-top.png'
 
+import toast from '@/components/toast'
+
 export default {
+  components: {
+    toast,
+  },
   data () {
     return {
       hasUserInfo: false,
       userInfo: {},
+      trip_id: 0,
     }
   },
   computed: {
     ...mapState({
       isLogin: state => state.user.isLogin,
       user: state => state.user.user,
+      trip: state => state.base.trip,
     }),
     avatar () {
       return avatar
@@ -66,6 +80,11 @@ export default {
       } else {
         return '未登录'
       }
+    },
+    tripIndex () {
+      let trip_id = this.trip_id
+      let index = this.trip.findIndex(item => item.id === trip_id)
+      return index
     },
     tripName () {
       if (this.user.trip_name) {
@@ -84,12 +103,23 @@ export default {
       }
     }) 
   },
+  onShow () {
+    if (this.isLogin && this.user.trip_id) {
+      this.trip_id = this.user.trip_id
+    }
+  },
   methods: {
     ...mapMutations({
-      logout: 'logout'
+      logout: 'logout',
     }),
     ...mapActions({
+      setTripAsync: 'setTripAsync',
     }),
+    getUserInfo (e) {
+      let userInfo = e.mp.detail.userInfo
+      this.hasUserInfo = true
+      this.userInfo = userInfo
+    },
     toLogin (path) {
       this.$router.push(Path.login)
     },
@@ -106,11 +136,13 @@ export default {
         }
       })
     },
-    getUserInfo (e) {
-      let userInfo = e.mp.detail.userInfo
-      this.hasUserInfo = true
-      this.userInfo = userInfo
-    }
+    changeTrip (e) {
+      let index = e.mp.detail.value
+      let id = this.trip[index].id
+
+      this.trip_id = id
+      this.setTripAsync({handler_trip: id})
+    },
   }
 }
 </script>

@@ -19,7 +19,7 @@ class UserController extends Controller
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HeaderParamAuth::className(),
-            'only' => ['get-user-info']
+            'only' => ['get-user-info', 'set-trip']
         ];
         return $behaviors;
     }
@@ -29,6 +29,7 @@ class UserController extends Controller
         return [
             'login' => ['post'],
             'get-user-info' => ['get'],
+            'set-trip' => ['post'],
         ];
     }
 
@@ -64,7 +65,7 @@ class UserController extends Controller
     }
 
     /**
-     * Login
+     * get user info
      */
     public function actionGetUserInfo()
     {
@@ -98,6 +99,38 @@ class UserController extends Controller
         return [
             'Ret' => 0,
             'Data' => $data
+        ];
+    }
+
+    /**
+     * set trip
+     */
+    public function actionSetTrip()
+    {
+        $identity = Yii::$app->user->identity;
+        $model = Handler::findOne($identity->user_handler);
+
+        if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
+            if ($model->save(false)) {
+                return [
+                    'Ret' => 0,
+                    'Data' => '保存成功',
+                ];
+            } else {
+                return [
+                    'Ret' => 2,
+                    'Data' => [
+                        'errors' => ['更新失败']
+                    ]
+                ];
+            }
+        }
+        
+        return [
+            'Ret' => 3,
+            'Data' => [
+                'errors' => $model->getFirstErrors()
+            ]
         ];
     }
 

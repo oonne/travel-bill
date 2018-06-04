@@ -31,6 +31,10 @@ export default {
     setUser (state, data) {
       state.user = data
     },
+    setUserTrip (state, data) {
+      state.user.trip_id = data.id
+      state.user.trip_name = data.trip_name
+    },
   },
   actions: {
     async loginAsync ({ commit }, options) {
@@ -68,6 +72,23 @@ export default {
         }
       }).catch((e) => {
         console.warn('获取用户资料失败')
+      })
+    },
+    async setTripAsync ({ commit, rootState }, options) {
+      let tripList = rootState.base.trip
+      let trip  = tripList.find(item => item.id == options.handler_trip)
+
+      Request.post('/user/set-trip', options, {
+        baseURL: Url.api
+      }).then((data) => {
+        if (data.Ret == 0) {
+          commit('showToast', {msg: '切换成功'})
+          commit('setUserTrip', trip)
+        } else {
+          commit('showToast', {msg: '切换失败'})
+        }
+      }).catch((e) => {
+        console.warn('切换项目失败')
       })
     },
   }
