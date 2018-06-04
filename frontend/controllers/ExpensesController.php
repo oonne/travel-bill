@@ -34,8 +34,10 @@ class ExpensesController extends Controller
 
     public function actionIndex()
     {
+        $tripID = Yii::$app->user->identity->trip->id;
         $query = Expenses::find()
-            ->select(['id', 'expenses_date', 'expenses_item', 'expenses_city', 'expenses_money', 'expenses_trip', 'expenses_category', 'expenses_handler', 'expenses_receipt', 'expenses_remark']);
+            ->select(['id', 'expenses_date', 'expenses_item', 'expenses_city', 'expenses_money', 'expenses_trip', 'expenses_category', 'expenses_handler', 'expenses_receipt', 'expenses_remark'])
+            ->where(['expenses_trip' => $tripID]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
