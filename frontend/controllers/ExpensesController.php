@@ -124,7 +124,7 @@ class ExpensesController extends Controller
                 return [
                     'Ret' => 2,
                     'Data' => [
-                        'errors' => ['保存失败']
+                        'errors' => ['更新失败']
                     ]
                 ];
             }
@@ -133,7 +133,7 @@ class ExpensesController extends Controller
         return [
             'Ret' => 3,
             'Data' => [
-                'errors' => ['更新失败']
+                'errors' => $model->getFirstErrors()
             ]
         ];
     }
@@ -154,9 +154,9 @@ class ExpensesController extends Controller
         }
 
         $transaction = Yii::$app->db->beginTransaction();
-        $recycleContent = $recycleContent .'<p>项目：'. ($model->trip ? $model->trip->trip_name : '出差项目错误' ).'</p>';
-        $recycleContent = '<p>地点：'. $model->expenses_city .'</p>';
-        $recycleContent = '<p>内容：'. $model->expenses_item .'</p>';
+        $recycleContent = '<p>项目：'. ($model->trip ? $model->trip->trip_name : '出差项目错误' ).'</p>';
+        $recycleContent = $recycleContent .'<p>地点：'. $model->expenses_city .'</p>';
+        $recycleContent = $recycleContent .'<p>内容：'. $model->expenses_item .'</p>';
         $recycleContent = $recycleContent .'<p>分类：'. ($model->category ? $model->category->category_name : '分类错误' ).'</p>';
         $recycleContent = $recycleContent .'<p>金额：'. $model->expenses_money .'</p>';
         $recycleContent = $recycleContent .'<p>时间：'. $model->expenses_date .'</p>';
