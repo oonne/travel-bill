@@ -1,5 +1,5 @@
 let config = {
-  env: 'dev', // 环境
+  env: 'prod', // 环境
 
   dev: {
     envName: '开发环境', // 环境
