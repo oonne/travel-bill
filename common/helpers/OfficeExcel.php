@@ -36,8 +36,8 @@ class OfficeExcel
             
             $serialNumber++;
         }
-        $sheet->setCellValue('F' . $serialNumber, '合计');
-        $sheet->setCellValue('G' . $serialNumber, $data['summary']);
+        $sheet->setCellValue('C' . $serialNumber, '合计');
+        $sheet->setCellValue('D' . $serialNumber, $data['summary']);
 
         // 写入文件
         $filename = '出差报销单' . date("_Ymd_His") . '.xlsx';
